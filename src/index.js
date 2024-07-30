@@ -8,11 +8,15 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import { BrowserRouter as Router } from "react-router-dom";
 
+import { ApiProvider } from "./context/api.context"
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <Router>
-    <App />
+    <ApiProvider>
+      <App />
+    </ApiProvider>
   </Router>
 );
 

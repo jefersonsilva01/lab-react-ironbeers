@@ -83,6 +83,7 @@ nav i:hover {
   background-color: unset;
   scale: unset;
   transition: all 0.3s ease-in-out;
+  padding: 0 16px;
 }
 
 .beer:hover {
@@ -90,9 +91,14 @@ nav i:hover {
   scale: 1.1;
 }
 
+.beer img {
+  width: 20%;
+}
+
 .beer ul {
   text-align: left;
   margin-left: 0;
+  width: 100%;
 }
 
 .beer h4,
@@ -107,6 +113,10 @@ nav i:hover {
 .one-beer {
   width: 50%;
   margin: 16px auto;
+}
+
+.one-beer img {
+  width: 50%;
 }
 
 .one-beer div {

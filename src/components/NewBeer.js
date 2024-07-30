@@ -1,37 +1,42 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Nav from "./Nav";
-import axios from 'axios';
+import { ApiContext } from '../context/api.context';
 
 const NewBeer = () => {
 
-  const beer = {
-    name: null,
-    tagline: null,
-    description: null,
-    first_brewed: null,
-    brewers_tips: null,
-    attenuation_level: null,
-    contributed_by: null
-  },
-
-    [newBeer, setNewBeer] = useState(beer),
-
-    baseURL = "https://ih-beers-api2.herokuapp.com/beers/new",
+  const { add, newBeer } = useContext(ApiContext),
+    [beer, setbeer] = useState({
+      name: "",
+      tagline: "",
+      description: "",
+      first_brewed: "",
+      brewers_tips: "",
+      attenuation_level: 0,
+      contributed_by: ""
+    }),
 
     changeBeer = e => {
       e.preventDefault();
       let { name, value } = e.target;
       if (name === 'attenuation_level') value = Number(value);
-      beer[name] = value;
+      setbeer({ ...beer, [name]: value });
     },
 
     createNewBeer = e => {
       e.preventDefault();
-      axios.post(baseURL, beer)
-        .then(response => setNewBeer(response.data));
-    };
 
-  if (!newBeer) return 'No post!'
+      add(beer);
+
+      setbeer({
+        name: "",
+        tagline: "",
+        description: "",
+        first_brewed: "",
+        brewers_tips: "",
+        attenuation_level: 0,
+        contributed_by: ""
+      })
+    };
 
   console.log(newBeer);
 
@@ -42,6 +47,7 @@ const NewBeer = () => {
         <label htmlFor="name">Name</label>
         <input
           onChange={(e) => { changeBeer(e) }}
+          value={beer.name}
           type="text"
           name="name"
           id="name" />
@@ -49,6 +55,7 @@ const NewBeer = () => {
         <label htmlFor="tagline">Tagline</label>
         <input
           onChange={(e) => { changeBeer(e) }}
+          value={beer.tagline}
           type="text"
           name="tagline"
           id="tagline" />
@@ -56,12 +63,14 @@ const NewBeer = () => {
         <label htmlFor="description">Description</label>
         <textarea
           onChange={(e) => { changeBeer(e) }}
+          value={beer.description}
           name="description"
           id="description" />
 
         <label htmlFor="first_brewed">First Brewed</label>
         <input
           onChange={(e) => { changeBeer(e) }}
+          value={beer.first_brewed}
           type="text"
           name="first_brewed"
           id="first_brewed" />
@@ -69,6 +78,7 @@ const NewBeer = () => {
         <label htmlFor="brewers_tips">Brewers Tips</label>
         <input
           onChange={(e) => { changeBeer(e) }}
+          value={beer.brewers_tips}
           type="text"
           name="brewers_tips"
           id="brewers_tips" />
@@ -76,6 +86,7 @@ const NewBeer = () => {
         <label htmlFor="attenuation_level">Attenuation Level</label>
         <input
           onChange={(e) => { changeBeer(e) }}
+          value={beer.attenuation_level}
           type="number"
           name="attenuation_level"
           id="attenuation_level" />
@@ -83,6 +94,7 @@ const NewBeer = () => {
         <label htmlFor="contributed_by">Contributed By</label>
         <input
           onChange={(e) => { changeBeer(e) }}
+          value={beer.contributed_by}
           type="text"
           name="contributed_by"
           id="contributed_by" />
